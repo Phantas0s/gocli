@@ -1,0 +1,62 @@
+{
+    "status": 1,
+    "complete": 1,
+    "list": {
+        "3265247758": {
+            "item_id": "3265247758",
+            "resolved_id": "3265247758",
+            "given_url": "https://www.thebusinessofauthority.com/episodes/humane-email-automation-with-jason-resnick",
+            "given_title": "Humane Email Automation with Jason Resnick | The Business of Authority",
+            "favorite": "0",
+            "status": "0",
+            "time_added": "1614183995",
+            "time_updated": "1614183995",
+            "time_read": "0",
+            "time_favorited": "0",
+            "sort_id": 0,
+            "resolved_title": "",
+            "resolved_url": "https://www.thebusinessofauthority.com/episodes/humane-email-automation-with-jason-resnick",
+            "excerpt": "",
+            "is_article": "0",
+            "is_index": "0",
+            "has_video": "0",
+            "has_image": "0",
+            "word_count": "0",
+            "lang": "",
+            "listen_duration_estimate": 0
+        },
+        "263119115": {
+            "item_id": "263119115",
+            "resolved_id": "263119115",
+            "given_url": "https://www.youtube.com/watch?v=P2mh92d-T3Y",
+            "given_title": "Dan Ingalls: Object-Oriented Programming - YouTube",
+            "favorite": "0",
+            "status": "0",
+            "time_added": "1614090931",
+            "time_updated": "1614090931",
+            "time_read": "0",
+            "time_favorited": "0",
+            "sort_id": 1,
+            "resolved_title": "Dan Ingalls: Object-Oriented Programming",
+            "resolved_url": "https://www.youtube.com/watch?v=P2mh92d-T3Y",
+            "excerpt": "Lecture about OOP given by Smalltalk Developer Dan Ingalls. Even in our days, where object-oriented programming is widely accepted, it is still not very well understood by most people. Here's a summary of the lecture, given by Dan Ingal (who worked in Alan Kay's Smalltalk group): *State-of-the-art:",
+            "is_article": "0",
+            "is_index": "0",
+            "has_video": "2",
+            "has_image": "1",
+            "word_count": "0",
+            "lang": "",
+            "domain_metadata": {
+                "name": "YouTube",
+                "logo": "https://logo.clearbit.com/youtube.com?size=800",
+                "greyscale_logo": "https://logo.clearbit.com/youtube.com?size=800&greyscale=true"
+            },
+            "listen_duration_estimate": 0
+        }
+    },
+    "error": null,
+    "search_meta": {
+        "search_type": "normal"
+    },
+    "since": 1614195674
+}
