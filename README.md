@@ -6,9 +6,11 @@
 
 **TODO - automate this tweet badge**
 
-[![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Gocket%20-%20CLI%20and%20TUI%20for%20Pocket%20:&url=https%3A%2F%2Fgithub.com%2Fphantas0s%2Fgocket&hashtags=developers,mouseless,terminal,CLI,golang)
+[![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Gocli%20-%20CLI%20:&url=https%3A%2F%2Fgithub.com%2Fphantas0s%2Fgocli)
 
-A template to create CLI.
+A template to create CLI. This is an experiment with `go generate`, see if it's possible to create the whole boilerplate to create CLIs easily.
+
+
 
 * It's great!
 * Awesome
@@ -25,7 +27,7 @@ A template to create CLI.
 If you use a Linux-based OS, here's a simple way to download gocli and move it to `/usr/local/bin`. You can then call it wherever you want.
 
 ```shell
-curl -L https://raw.githubusercontent.com/Phantas0s/gocket/master/install/linux.sh | bash
+curl -L https://raw.githubusercontent.com/Phantas0s/<my_cli>/master/install/linux.sh | bash
 ```
 ### Manual installation
 
@@ -33,8 +35,6 @@ curl -L https://raw.githubusercontent.com/Phantas0s/gocket/master/install/linux.
 
 ### Steps
 ### XDG Home Directory
-
-Running `gocket list` without any consumer key will display an error message indicating where to create the config file.
 
 The value of `$XDG_CONFIG_HOME` depends of your OS. Here are the defaults (if you didn't modify it):
 
@@ -101,6 +101,12 @@ Switching between a keyboard and mouse costs cognitive energy. [My book will hel
 
 * Thanks to [MariaLetta](https://github.com/MariaLetta/free-gophers-pack) for the awesome and beautiful Gopher pack! I used it for my logo on top.
 * Thanks to [Lukasz Adam](https://lukaszadam.com/illustrations) for his free and amazing illustrations I use basically everywhere.
+
+## Interesting Articles
+
+[Go generate](https://blog.gopheracademy.com/advent-2015/reducing-boilerplate-with-go-generate/)
+[man pages](https://www.golinuxcloud.com/create-man-page-template-linux-with-examples/)
+
 
 ## Licence
 
