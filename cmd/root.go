@@ -49,7 +49,6 @@ func rootCmd(v *viper.Viper) *cobra.Command {
 		Short: "gocli",
 		PersistentPreRun: func(cmd *cobra.Command, args []string) {
 			bindFlagToConfig(cmd, v)
-			verifyKey(cmd)
 		},
 	}
 }
