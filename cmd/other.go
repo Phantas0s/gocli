@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/Phantas0s/go-cli/internal"
+	"github.com/Phantas0s/gocli/internal"
 	"github.com/spf13/cobra"
 )
 
@@ -9,11 +9,10 @@ var archive bool
 
 func otherCmd() *cobra.Command {
 	otherCmd := &cobra.Command{
-		Use:   "list",
-		Short: "List your Pocket pages",
-		// TODO write some help
+		Use:   "example",
+		Short: "Do something",
 		Run: func(cmd *cobra.Command, args []string) {
-			runList()
+			doSomething()
 		},
 	}
 
@@ -22,6 +21,6 @@ func otherCmd() *cobra.Command {
 	return otherCmd
 }
 
-func runOther() {
+func doSomething() {
 	internal.Display()
 }

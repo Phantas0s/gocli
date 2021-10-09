@@ -14,20 +14,9 @@ import (
 	"github.com/adrg/xdg"
 )
 
-var consumerKey string
+var key string
 
 const envPrefix = "gocket"
-
-func rootCmd(v *viper.Viper) *cobra.Command {
-	return &cobra.Command{
-		Use:   "gocket",
-		Short: "Pocket in the shell",
-		PersistentPreRun: func(cmd *cobra.Command, args []string) {
-			bindFlagToConfig(cmd, v)
-			verifyKey(cmd)
-		},
-	}
-}
 
 func initConfig() *viper.Viper {
 	v := viper.New()
@@ -46,11 +35,21 @@ func initConfig() *viper.Viper {
 func Execute() {
 	rootCmd := rootCmd(initConfig())
 	rootCmd.AddCommand(otherCmd())
-	rootCmd.PersistentFlags().StringVarP(&consumerKey, "key", "k", "", "Random consumer key")
+	rootCmd.PersistentFlags().StringVarP(&key, "key", "k", "", "Some key")
 
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
+	}
+}
+
+func rootCmd(v *viper.Viper) *cobra.Command {
+	return &cobra.Command{
+		Use:   "gocli",
+		Short: "gocli",
+		PersistentPreRun: func(cmd *cobra.Command, args []string) {
+			bindFlagToConfig(cmd, v)
+		},
 	}
 }
 
