@@ -1,27 +1,40 @@
 # gocli
 
-**LOGO**
-
-![travis CLI]() [![Go Report Card]()]() [![Codacy Badge]()]() [![Hits-of-Code]()]() [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) 
-
-**TODO - automate this tweet badge**
-
-[![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Gocli%20-%20CLI%20:&url=https%3A%2F%2Fgithub.com%2Fphantas0s%2Fgocli)
-
-A template to create CLI. This is an experiment with `go generate`, see if it's possible to create the whole boilerplate to create CLIs easily.
-
-
-
-* It's great!
-* Awesome
-
-**SCREENSHOT**
-
-**It's early version**
+A template to create CLI in Golang.
 
 ## Installation
 
-### General
+1. Clone this repository.
+2. Compile the example: `go build`
+3. Look at the next section.
+
+## Highlights
+
+* Default commands (help, version).
+* Possibility to configure each flag via config file.
+* Automatic generation of environment variable.
+* Easy way to create app releases.
+* Script to automatically install your CLI on Linux.
+
+## Usage
+
+### Getting Started
+
+The CLI by default has three commands: `--version`
+
+* Run `./gocli` to output the help.
+* Run `./gocli help` to output the help.
+* Run 
+
+### Releasing
+
+* Need a git tag
+* Need to be in a clean state (git)
+
+### Adding A Command
+
+### Adding A Flag
+
 ### Linux script
 
 If you use a Linux-based OS, here's a simple way to download gocli and move it to `/usr/local/bin`. You can then call it wherever you want.
