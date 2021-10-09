@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"bufio"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -14,17 +13,15 @@ import (
 	"github.com/adrg/xdg"
 )
 
-var key string
-
-const envPrefix = "gocket"
+const appName = "gocli"
 
 func initConfig() *viper.Viper {
 	v := viper.New()
-	v.AddConfigPath(filepath.Join(xdg.ConfigHome, "gocket"))
+	v.AddConfigPath(filepath.Join(xdg.ConfigHome, appName))
 	v.AddConfigPath(".")
 	v.SetConfigName("config")
 
-	v.SetEnvPrefix(envPrefix)
+	v.SetEnvPrefix(appName)
 	v.AutomaticEnv()
 
 	v.ReadInConfig()
@@ -34,8 +31,8 @@ func initConfig() *viper.Viper {
 
 func Execute() {
 	rootCmd := rootCmd(initConfig())
-	rootCmd.AddCommand(otherCmd())
-	rootCmd.PersistentFlags().StringVarP(&key, "key", "k", "", "Some key")
+	rootCmd.AddCommand(exampleCmd())
+	rootCmd.AddCommand(versionCmd())
 
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Fprintln(os.Stderr, err)
@@ -45,8 +42,8 @@ func Execute() {
 
 func rootCmd(v *viper.Viper) *cobra.Command {
 	return &cobra.Command{
-		Use:   "gocli",
-		Short: "gocli",
+		Use:   appName,
+		Short: appName,
 		PersistentPreRun: func(cmd *cobra.Command, args []string) {
 			bindFlagToConfig(cmd, v)
 		},
@@ -57,27 +54,11 @@ func bindFlagToConfig(cmd *cobra.Command, v *viper.Viper) {
 	cmd.Flags().VisitAll(func(f *pflag.Flag) {
 		if strings.Contains(f.Name, "-") {
 			envVarSuffix := strings.ToUpper(strings.ReplaceAll(f.Name, "-", "_"))
-			v.BindEnv(f.Name, fmt.Sprintf("%s_%s", envPrefix, envVarSuffix))
+			v.BindEnv(f.Name, fmt.Sprintf("%s_%s", appName, envVarSuffix))
 		}
 		if !f.Changed && v.IsSet(f.Name) {
 			val := v.Get(f.Name)
 			cmd.Flags().Set(f.Name, fmt.Sprintf("%v", val))
 		}
 	})
-}
-
-func prompt(message string) bool {
-	os.Stdout.WriteString(message + " (y/n)")
-	reader := bufio.NewReader(os.Stdin)
-	i, err := reader.ReadString('\n')
-	if err != nil {
-		panic(err)
-	}
-
-	if strings.Trim(string(i), "\n") == "y" {
-		return true
-	} else {
-		os.Stdout.WriteString("Aborted.")
-		return false
-	}
 }

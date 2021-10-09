@@ -1,7 +1,12 @@
 package internal
 
-import "os"
+import (
+	"os"
+)
 
-func Display() {
+func Display(flag bool) {
 	os.Stdout.WriteString("Hello!")
+	if flag {
+		os.Stdout.WriteString("You've set a flag!")
+	}
 }

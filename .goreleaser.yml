@@ -27,5 +27,5 @@ checksum:
 snapshot:
   name_template: "{{ .Tag }}-next"
 changelog:
-    # Keep a manual, simpler changelog for now
+    # Skip changelog generation
     skip: true
