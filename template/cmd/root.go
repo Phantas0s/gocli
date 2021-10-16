@@ -13,7 +13,7 @@ import (
 	"github.com/adrg/xdg"
 )
 
-const appName = "gocli"
+const appName = {{.Name}}
 
 func initConfig() *viper.Viper {
 	v := viper.New()
