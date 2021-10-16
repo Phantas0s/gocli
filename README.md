@@ -2,12 +2,6 @@
 
 A template to create CLI in Golang.
 
-## Installation
-
-1. Clone this repository.
-2. Compile the example: `go build`
-3. Look at the next section.
-
 ## Highlights
 
 * Default commands (help, version).
@@ -16,24 +10,42 @@ A template to create CLI in Golang.
 * Easy way to create app releases.
 * Script to automatically install your CLI on Linux.
 
+## Installation
+
+1. Clone this repository with the name of your new CLI (replace `greatcli` with something else):
+
+```
+git clone https://github.com/Phantas0s/gocli greatcli
+```
+
+2. Run `go build` in your new project. You've just compiled the example CLI!
+3. Run `./gocli`: the CLI binary works.
+
 ## Usage
 
-### Getting Started
+### Trying the Example
 
-The CLI by default has three commands: `--version`
+The example CLI has three commands by default:
 
-* Run `./gocli` to output the help.
-* Run `./gocli help` to output the help.
-* Run 
+* `version` - Display the CLI's version.
+* `help` - Display the help of the command. For the general help: `./gocli help`. For a command's help: `./gocli <command> --help`.
+* `example` - A dummy command.
 
-### Releasing
+If you try `./gocli version`, you'll notice that the version number is missing. It's because your CLI needs to be released to have a version. See the section "Releasing your Cli".
+
+### Creating your CLI
+
+First, let's edit main.go. Replace every instance of gocli with the name of your cli.
+
+
+#### Defining the Command and the Flags
+
+### Adding A Flag
+
+## Releasing Your CLI
 
 * Need a git tag
 * Need to be in a clean state (git)
-
-### Adding A Command
-
-### Adding A Flag
 
 ### Linux script
 
@@ -42,48 +54,8 @@ If you use a Linux-based OS, here's a simple way to download gocli and move it t
 ```shell
 curl -L https://raw.githubusercontent.com/Phantas0s/<my_cli>/master/install/linux.sh | bash
 ```
-### Manual installation
 
-## Authorization
-
-### Steps
-### XDG Home Directory
-
-The value of `$XDG_CONFIG_HOME` depends of your OS. Here are the defaults (if you didn't modify it):
-
-* **Unix systems**: `~/.config`
-* **macOS**: `~/Library/Application Support`
-* **Windows**: `%LOCALAPPDATA%`
-
-## Commands
-
-Use the option `-h` for each command to output the help.
-
-### Other
-
-## Usage
-
-If you choose to use the TUI, you can select a page and open it with your favorite browser using the `ENTER` key.
-
-| Description      | Command        |
-| ----             | ----           |
-| Display nonsense | `gocli other`  |
-
-## Option, Configuration, and Environment Variables
-
-You can provide the different options to gocli using:
-
-1. Command-line options 
-2. Environment variables 
-3. Configuration file 
-
-If these options are defined multiple times, the priorities follow the order above (from higher priority to lower).
-
-The names of the environment variables need to be uppercase and prefixed with `GO_CLI_`. Every hyphen `-` in the option's name needs to be replaced with an underscore `_`.
-
-## TUI Keystrokes
-
-### Navigation
+## Navigation
 
 <pre>
  <kbd>↑</kbd> or <kbd>k</kbd>: up
@@ -106,20 +78,9 @@ The names of the environment variables need to be uppercase and prefixed with `G
 
 Consider [sponsoring my work](https://github.com/sponsors/Phantas0s) if you want to see new, fresh, and crunchy little CLIs (and TUIs) all over your system.
 
-## Shameless Mouseless Plug
+## Building Your Mouseless Environment
 
 Switching between a keyboard and mouse costs cognitive energy. [My book will help you set up a Linux-based development environment](https://themouseless.dev) that keeps your hands on your keyboard. Take the brain power you've been using to juggle input devices and focus it where it belongs: on the things you create.
-
-## Acknowledgements
-
-* Thanks to [MariaLetta](https://github.com/MariaLetta/free-gophers-pack) for the awesome and beautiful Gopher pack! I used it for my logo on top.
-* Thanks to [Lukasz Adam](https://lukaszadam.com/illustrations) for his free and amazing illustrations I use basically everywhere.
-
-## Interesting Articles
-
-[Go generate](https://blog.gopheracademy.com/advent-2015/reducing-boilerplate-with-go-generate/)
-[man pages](https://www.golinuxcloud.com/create-man-page-template-linux-with-examples/)
-
 
 ## Licence
 
