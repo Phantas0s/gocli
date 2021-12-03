@@ -6,7 +6,6 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	"strings"
 	"text/template"
 )
 
@@ -18,32 +17,34 @@ func main() {
 		"template/cmd/root.go",
 	}
 
+	if len(os.Args) == 0 {
+		panic("You need to give the path of the new CLI as argument.")
+	}
+
+	cliPath := os.Args[1]
+	_, name := filepath.Split(cliPath)
+
 	data := struct {
 		Name string
-	}{"nwecli"}
+	}{name}
 
 	templateDir := "template"
-	os.Mkdir(data.Name, 0775)
-	err := filepath.Walk(templateDir,
-		func(path string, info os.FileInfo, err error) error {
-			newPath := strings.ReplaceAll(path, templateDir, data.Name)
-
-			if err != nil {
-				return err
+	os.Mkdir(cliPath+string(filepath.Separator)+data.Name, 0750)
+	walkFunc := func(cliPath string) func(path string, file os.FileInfo, err error) error {
+		return func(path string, file os.FileInfo, err error) error {
+			newPath := cliPath + string(filepath.Separator) + file.Name()
+			if file.IsDir() {
+				os.MkdirAll(newPath, 0750)
 			}
 
-			if info.IsDir() {
-				os.MkdirAll(newPath, 0775)
-			}
-
-			if !inArray(templates, path) && !info.IsDir() {
+			if !inArray(templates, path) && !file.IsDir() {
 				input, err := ioutil.ReadFile(path)
 				if err != nil {
 					fmt.Println(err)
 					return nil
 				}
 
-				err = ioutil.WriteFile(newPath, input, 0775)
+				err = ioutil.WriteFile(newPath, input, 0750)
 				if err != nil {
 					fmt.Println("Error creating", newPath)
 					fmt.Println(err)
@@ -52,7 +53,9 @@ func main() {
 			}
 
 			return nil
-		})
+		}
+	}
+	err := filepath.Walk(templateDir, walkFunc(cliPath))
 	if err != nil {
 		log.Println(err)
 	}
@@ -64,7 +67,7 @@ func main() {
 
 	for _, v := range templates {
 		_, file := filepath.Split(v)
-		destination, err := os.Create(strings.ReplaceAll(v, templateDir, data.Name))
+		destination, err := os.Create(cliPath + string(filepath.Separator) + file)
 		defer destination.Close()
 		if err != nil {
 			return
