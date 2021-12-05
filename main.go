@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strings"
 	"text/template"
 )
 
@@ -17,7 +18,7 @@ func main() {
 		"template/cmd/root.go",
 	}
 
-	if len(os.Args) == 0 {
+	if len(os.Args) < 2 {
 		panic("You need to give the path of the new CLI as argument.")
 	}
 
@@ -32,9 +33,10 @@ func main() {
 	os.Mkdir(cliPath+string(filepath.Separator)+data.Name, 0750)
 	walkFunc := func(cliPath string) func(path string, file os.FileInfo, err error) error {
 		return func(path string, file os.FileInfo, err error) error {
-			newPath := cliPath + string(filepath.Separator) + file.Name()
+			tailPath := strings.Split(path, string(filepath.Separator))[1:]
+			newPath := cliPath + string(filepath.Separator) + filepath.Join(tailPath...)
 			if file.IsDir() {
-				os.MkdirAll(newPath, 0750)
+				os.MkdirAll(newPath, file.Mode())
 			}
 
 			if !inArray(templates, path) && !file.IsDir() {
@@ -44,7 +46,7 @@ func main() {
 					return nil
 				}
 
-				err = ioutil.WriteFile(newPath, input, 0750)
+				err = ioutil.WriteFile(newPath, input, file.Mode())
 				if err != nil {
 					fmt.Println("Error creating", newPath)
 					fmt.Println(err)
@@ -66,13 +68,14 @@ func main() {
 	}
 
 	for _, v := range templates {
-		_, file := filepath.Split(v)
-		destination, err := os.Create(cliPath + string(filepath.Separator) + file)
+		tailPath := strings.Split(v, string(filepath.Separator))[1:]
+		destination, err := os.Create(cliPath + string(filepath.Separator) + filepath.Join(tailPath...))
 		defer destination.Close()
 		if err != nil {
+			fmt.Println(err)
 			return
 		}
-		err = t.ExecuteTemplate(destination, file, data)
+		err = t.ExecuteTemplate(destination, tailPath[len(tailPath)-1], data)
 	}
 
 	if err != nil {

@@ -13,7 +13,7 @@ import (
 	"github.com/adrg/xdg"
 )
 
-const appName = {{.Name}}
+const appName = "{{.Name}}"
 
 func initConfig() *viper.Viper {
 	v := viper.New()
