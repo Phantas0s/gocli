@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -16,21 +17,29 @@ func main() {
 		"template/go.mod",
 		"template/cmd/example.go",
 		"template/cmd/root.go",
+		"template/install/linux.sh",
 	}
 
-	if len(os.Args) < 2 {
-		panic("You need to give the path of the new CLI as argument.")
-	}
+	cliPath := flag.String("p", "./new", "Path of the new CLI project.")
+	// TODO
+	// cvs := flag.String("c", "./new", "Name of the used VCS (i.e github,gitlab...)")
+	flag.Parse()
 
-	cliPath := os.Args[1]
-	_, name := filepath.Split(cliPath)
+	fmt.Println(flag.Args())
+	if len(flag.Args()) < 1 {
+		panic("You need to give the username of your repository (Github by default)")
+	}
+	user := flag.Args()[0]
+
+	_, name := filepath.Split(*cliPath)
 
 	data := struct {
 		Name string
-	}{name}
+		User string
+	}{name, user}
 
 	templateDir := "template"
-	os.Mkdir(cliPath+string(filepath.Separator)+data.Name, 0750)
+	os.Mkdir(*cliPath+string(filepath.Separator)+data.Name, 0750)
 	walkFunc := func(cliPath string) func(path string, file os.FileInfo, err error) error {
 		return func(path string, file os.FileInfo, err error) error {
 			tailPath := strings.Split(path, string(filepath.Separator))[1:]
@@ -57,7 +66,7 @@ func main() {
 			return nil
 		}
 	}
-	err := filepath.Walk(templateDir, walkFunc(cliPath))
+	err := filepath.Walk(templateDir, walkFunc(*cliPath))
 	if err != nil {
 		log.Println(err)
 	}
@@ -69,13 +78,15 @@ func main() {
 
 	for _, v := range templates {
 		tailPath := strings.Split(v, string(filepath.Separator))[1:]
-		destination, err := os.Create(cliPath + string(filepath.Separator) + filepath.Join(tailPath...))
+		destination, err := os.Create(*cliPath + string(filepath.Separator) + filepath.Join(tailPath...))
 		defer destination.Close()
 		if err != nil {
 			fmt.Println(err)
 			return
 		}
-		err = t.ExecuteTemplate(destination, tailPath[len(tailPath)-1], data)
+
+		_, file := filepath.Split(v)
+		err = t.ExecuteTemplate(destination, file, data)
 	}
 
 	if err != nil {

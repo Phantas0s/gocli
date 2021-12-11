@@ -1,4 +1,4 @@
-module github.com/Phantas0s/{{.Name}}
+module github.com/{{.User}}/{{.Name}}
 
 go 1.16
 

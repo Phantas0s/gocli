@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/Phantas0s/{{.Name}}/internal"
+	"github.com/{{.User}}/{{.Name}}/internal"
 	"github.com/spf13/cobra"
 )
 
