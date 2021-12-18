@@ -1,25 +1,52 @@
 # gocli
 
-A boilerplate generator to create CLIs in Golang
+A boilerplate generator to create CLIs in Golang.
+
+**WORK IN PROGRESS**
 
 ## Highlights
 
-* Default commands (help, version)
-* Possibility to configure each flag via config file
-* Automatic environment variables for each flag
-* Easy way to create app releases
-* Script to automatically install your CLI on Linux
+* Generate a new CLI project in one command.
+* Generate automatically the commands:
+* Create automatically environment variables for each flag
+* Can configure every flag of your CLI using a configuration file
 
-## Installation
+## Installing the CLI Creator
 
-1. Clone this repository with the name of your new CLI (replace `greatcli` with something else):
+Download the latest release and put it wherever you want.
 
-```
-git clone https://github.com/Phantas0s/gocli greatcli
-```
+## Creating a New CLI
 
-2. Run `go build` in your new project. You've just compiled the example CLI!
-3. Run `./gocli`: the CLI binary works.
+1. Generate a new CLI project with your project path and your Github username. For example: `./clicreator -p $HOME/myProject myGithubUsername`.
+2. Go to your project's root and pull the latest dependencies with `go get -u`.
+
+## Default Commands of Your New CLI
+
+* `help` - Display the help. The flags `--help` or `-h` have the same effect.
+* `version` - Display the current CLI version (need to be build with goreleaser before).
+* `completion` - Generate a completion for the common \*nix shells.
+* `example` - Example of a command; output a string.
+
+## Adding New Commands to your CLI
+
+1. Go to the directory `cmd`
+2. Create a new file
+3. You can get inspired from the example command (`cmd/example.go`) to create your own command.
+
+## Adding New Flags to your CLI
+
+## Commands
+
+## Argument and Options available
+
+The username of your favorite VCS (Version Control System) platform is the only mandatory argument.
+
+--------                -------------------------------         -----------------
+Option                  Description                             Default
+--------                -------------------------------         -----------------
+`-p`                    Path of your new CLI                    `./new`
+`-v`                    Address of your VCS platform            `github.com`
+--------                -------------------------------         -----------------
 
 ## Usage
 
