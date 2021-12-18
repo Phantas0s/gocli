@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/{{.User}}/{{.Name}}/internal"
+	"{{.VCS}}/{{.User}}/{{.Name}}/internal"
 	"github.com/spf13/cobra"
 )
 

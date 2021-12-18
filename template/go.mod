@@ -1,4 +1,4 @@
-module github.com/{{.User}}/{{.Name}}
+module {{.VCS}}/{{.User}}/{{.Name}}
 
 go 1.16
 

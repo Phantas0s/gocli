@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/{{.User}}/{{.Name}}/cmd"
+	"{{.VCS}}/{{.User}}/{{.Name}}/cmd"
 )
 
 func main() {

@@ -20,14 +20,13 @@ func main() {
 		"template/install/linux.sh",
 	}
 
-	cliPath := flag.String("p", "./new", "Path of the new CLI project.")
-	// TODO
-	// cvs := flag.String("c", "./new", "Name of the used VCS (i.e github,gitlab...)")
+	cliPath := flag.String("p", "./new", "Path of the new CLI project (default: ./new")
+	VCS := flag.String("v", "github.com", "Path to your VCS (default: github.com)")
 	flag.Parse()
 
 	fmt.Println(flag.Args())
 	if len(flag.Args()) < 1 {
-		panic("You need to give the username of your repository (Github by default)")
+		panic("You need to give the username of your repository")
 	}
 	user := flag.Args()[0]
 
@@ -36,7 +35,8 @@ func main() {
 	data := struct {
 		Name string
 		User string
-	}{name, user}
+		VCS  string
+	}{name, user, *VCS}
 
 	templateDir := "template"
 	os.Mkdir(*cliPath+string(filepath.Separator)+data.Name, 0750)
