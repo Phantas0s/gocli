@@ -5,12 +5,12 @@ import (
 	"github.com/spf13/cobra"
 )
 
-type ExampleFlags struct {
+type exampleFlags struct {
 	example bool
 }
 
 func exampleCmd() *cobra.Command {
-	exampleFlags := ExampleFlags{}
+	exampleFlags := exampleFlags{}
 
 	exampleCmd := &cobra.Command{
 		Use:   "example",
@@ -25,6 +25,6 @@ func exampleCmd() *cobra.Command {
 	return exampleCmd
 }
 
-func doSomething(exampleFlags ExampleFlags) {
+func doSomething(exampleFlags exampleFlags) {
 	internal.Display(exampleFlags.example)
 }

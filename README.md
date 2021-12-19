@@ -4,40 +4,26 @@ A boilerplate generator to create CLIs in Golang.
 
 **WORK IN PROGRESS**
 
-## Highlights
+## CLI Creator
+
+### Highlights
 
 * Generate a new CLI project in one command.
-* Generate automatically the commands:
-* Create automatically environment variables for each flag
-* Can configure every flag of your CLI using a configuration file
+* Default commands every CLI should have available by default.
+* Create environment variables for each flag automatically.
+* Possibility to configure every flag via options, via config file, or both.
 
-## Installing the CLI Creator
+### Installing the CLI Creator
 
 Download the latest release and put it wherever you want.
 
-## Creating a New CLI
+### Creating a New CLI
 
 1. Generate a new CLI project with your project path and your Github username. For example: `./clicreator -p $HOME/myProject myGithubUsername`.
-2. Go to your project's root and pull the latest dependencies with `go get -u`.
+2. Go to the project's root and pull the latest dependencies with `go get -u`.
+3. You can test the default command and add the ones you want.
 
-## Default Commands of Your New CLI
-
-* `help` - Display the help. The flags `--help` or `-h` have the same effect.
-* `version` - Display the current CLI version (need to be build with goreleaser before).
-* `completion` - Generate a completion for the common \*nix shells.
-* `example` - Example of a command; output a string.
-
-## Adding New Commands to your CLI
-
-1. Go to the directory `cmd`
-2. Create a new file
-3. You can get inspired from the example command (`cmd/example.go`) to create your own command.
-
-## Adding New Flags to your CLI
-
-## Commands
-
-## Argument and Options available
+### Argument and Options available
 
 The username of your favorite VCS (Version Control System) platform is the only mandatory argument.
 
@@ -48,28 +34,60 @@ Option                  Description                             Default
 `-v`                    Address of your VCS platform            `github.com`
 --------                -------------------------------         -----------------
 
-## Usage
+## Your New CLI Project
 
-### Trying the Example
+### Default Commands for Your New CLI
 
-The example CLI has three commands by default:
+* `help` - Display the help. The flags `--help` or `-h` have the same effect.
+* `version` - Display the current CLI version (need to be build with goreleaser before).
+* `completion` - Generate a completion for the common \*nix shells.
+* `example` - Simple example which output a string. The boolean option `--example` (or `-e`) output another string. Fantastic!
 
-* `version` - Display the CLI's version.
-* `help` - Display the help of the command. For the general help: `./gocli help`. For a command's help: `./gocli <command> --help`.
-* `example` - A dummy command.
+### Compiling Your CLI
 
-If you try `./gocli version`, you'll notice that the version number is missing. It's because your CLI needs to be released to have a version. See the section "Releasing your Cli".
+1. Go to the root of your project.
+2. Run `go get -u` to get the latest dependencies.
+3. Run `go build` to build the executable.
 
-### Creating your CLI
+You can call your new project in your favorite shell.
 
-First, let's edit main.go. Replace every instance of gocli with the name of your cli.
+### General Structure of the Project
 
+The CLI project will be created with these directories:
 
-#### Defining the Command and the Flags
+* `cmd` - The different commands for your CLI.
+* `install` - You can put different scripts to install your CLI here.
+* `internal` - It's where the logic of your CLI should go.
+* `internal/platform` - It's where any third party (API, database...) should be called, to isolate them from your main logic (in `internal`).
+* `
 
-### Adding A Flag
+The following files are also important:
 
-## Releasing Your CLI
+* `main.go` - The first function run by your CLI, `main`, is in this file
+
+### Adding New Commands
+
+Your new CLI use the `cobra` library to manage commands and flags. Open the file `cmd/example.go` and you'll see three functions:
+
+* `exampleFlags` - All the flags for this command are declared in this struct.
+* `exampleCmd` - Create and return the command. The flags are also created and attached to the command. Their values are set in the struct `exampleFlags`.
+* `doSomething` - Function called when the command run. This function can be anything you want.
+
+You can copy everything in a new file (in the folder `cmd`, for example `cmd/mySuperCommand.go`), rename what you need to rename (the command is not named `example` anymore!), and add whatever flag you want.
+
+When you create a command, it needs to be added to the root command via the function `Execute` in the file `cmd/root.go`.
+
+### Environment Variables
+
+Every flag you'll add can be set via environment variables automatically. TODO
+
+### Configuration File
+
+TODO
+
+### Releasing Your CLI
+
+TODO 
 
 * Need a git tag
 * Need to be in a clean state (git)
@@ -82,7 +100,7 @@ If you use a Linux-based OS, here's a simple way to download gocli and move it t
 curl -L https://raw.githubusercontent.com/Phantas0s/<my_cli>/master/install/linux.sh | bash
 ```
 
-## Navigation
+### Navigation
 
 <pre>
  <kbd>↑</kbd> or <kbd>k</kbd>: up
